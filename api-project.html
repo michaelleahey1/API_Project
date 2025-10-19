@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Free API Demo Project - JavaScript</title>
+    <link rel="stylesheet" href="api-styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>🚀 Free API Explorer</h1>
+            <p class="tagline">Explore data from multiple free APIs using JavaScript</p>
+        </div>
+    </header>
+
+    <div class="container">
+        <!-- API Navigation -->
+        <nav class="api-nav">
+            <button class="nav-btn active" data-section="weather">☀️ Weather</button>
+            <button class="nav-btn" data-section="users">👥 Random Users</button>
+            <button class="nav-btn" data-section="countries">🌍 Countries</button>
+            <button class="nav-btn" data-section="quotes">💭 Quotes</button>
+            <button class="nav-btn" data-section="jokes">😂 Jokes</button>
+            <button class="nav-btn" data-section="dogs">🐕 Dogs</button>
+        </nav>
+
+        <!-- Weather API Section -->
+        <section id="weather" class="api-section active">
+            <div class="section-header">
+                <h2>☀️ Weather API</h2>
+                <p>Get current weather data for any city (OpenWeather API)</p>
+            </div>
+            
+            <div class="input-group">
+                <input type="text" id="cityInput" placeholder="Enter city name (e.g., London)" value="London">
+                <button onclick="fetchWeather()" class="btn-primary">Get Weather</button>
+            </div>
+            
+            <div id="weatherResult" class="result-container"></div>
+        </section>
+
+        <!-- Random Users API Section -->
+        <section id="users" class="api-section">
+            <div class="section-header">
+                <h2>👥 Random User Generator</h2>
+                <p>Generate random user data (RandomUser.me API)</p>
+            </div>
+            
+            <div class="input-group">
+                <label for="userCount">Number of users:</label>
+                <select id="userCount">
+                    <option value="1">1</option>
+                    <option value="3" selected>3</option>
+                    <option value="5">5</option>
+                    <option value="10">10</option>
+                </select>
+                <button onclick="fetchRandomUsers()" class="btn-primary">Generate Users</button>
+            </div>
+            
+            <div id="usersResult" class="result-container users-grid"></div>
+        </section>
+
+        <!-- Countries API Section -->
+        <section id="countries" class="api-section">
+            <div class="section-header">
+                <h2>🌍 Countries Information</h2>
+                <p>Search for country information (REST Countries API)</p>
+            </div>
+            
+            <div class="input-group">
+                <input type="text" id="countryInput" placeholder="Enter country name (e.g., Japan)" value="Japan">
+                <button onclick="fetchCountry()" class="btn-primary">Search Country</button>
+            </div>
+            
+            <div id="countryResult" class="result-container"></div>
+        </section>
+
+        <!-- Quotes API Section -->
+        <section id="quotes" class="api-section">
+            <div class="section-header">
+                <h2>💭 Random Quotes</h2>
+                <p>Get inspirational quotes (Quotable API)</p>
+            </div>
+            
+            <div class="input-group">
+                <button onclick="fetchQuote()" class="btn-primary">Get Random Quote</button>
+                <button onclick="fetchQuoteByTag('inspirational')" class="btn-secondary">Inspirational</button>
+                <button onclick="fetchQuoteByTag('technology')" class="btn-secondary">Technology</button>
+            </div>
+            
+            <div id="quoteResult" class="result-container quote-display"></div>
+        </section>
+
+        <!-- Jokes API Section -->
+        <section id="jokes" class="api-section">
+            <div class="section-header">
+                <h2>😂 Random Jokes</h2>
+                <p>Get random programming jokes (JokeAPI)</p>
+            </div>
+            
+            <div class="input-group">
+                <button onclick="fetchJoke()" class="btn-primary">Get Random Joke</button>
+            </div>
+            
+            <div id="jokeResult" class="result-container joke-display"></div>
+        </section>
+
+        <!-- Dog Images API Section -->
+        <section id="dogs" class="api-section">
+            <div class="section-header">
+                <h2>🐕 Random Dog Images</h2>
+                <p>Get random dog pictures (Dog CEO API)</p>
+            </div>
+            
+            <div class="input-group">
+                <button onclick="fetchDogImage()" class="btn-primary">Get Random Dog</button>
+                <button onclick="fetchMultipleDogs()" class="btn-secondary">Get 3 Dogs</button>
+            </div>
+            
+            <div id="dogResult" class="result-container dog-display"></div>
+        </section>
+
+        <!-- API Information -->
+        <section class="api-info">
+            <h3>📚 APIs Used in This Project</h3>
+            <div class="api-cards">
+                <div class="api-card">
+                    <h4>OpenWeather API</h4>
+                    <p>Weather data for any location</p>
+                    <a href="https://openweathermap.org/api" target="_blank" rel="noopener">Learn More →</a>
+                </div>
+                <div class="api-card">
+                    <h4>RandomUser.me</h4>
+                    <p>Generate random user data</p>
+                    <a href="https://randomuser.me/" target="_blank" rel="noopener">Learn More →</a>
+                </div>
+                <div class="api-card">
+                    <h4>REST Countries</h4>
+                    <p>Country information database</p>
+                    <a href="https://restcountries.com/" target="_blank" rel="noopener">Learn More →</a>
+                </div>
+                <div class="api-card">
+                    <h4>Quotable API</h4>
+                    <p>Random quotes and sayings</p>
+                    <a href="https://github.com/lukePeavey/quotable" target="_blank" rel="noopener">Learn More →</a>
+                </div>
+                <div class="api-card">
+                    <h4>JokeAPI</h4>
+                    <p>Programming jokes</p>
+                    <a href="https://jokeapi.dev/" target="_blank" rel="noopener">Learn More →</a>
+                </div>
+                <div class="api-card">
+                    <h4>Dog CEO API</h4>
+                    <p>Random dog pictures</p>
+                    <a href="https://dog.ceo/dog-api/" target="_blank" rel="noopener">Learn More →</a>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <footer>
+        <div class="container">
+            <p>Built with ❤️ using Vanilla JavaScript and Free APIs</p>
+            <p>No API keys required for most endpoints!</p>
+        </div>
+    </footer>
+
+    <script src="api-script.js"></script>
+</body>
+</html>
+

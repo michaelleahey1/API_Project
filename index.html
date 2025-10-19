@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MarketStack - Real-Time Stock Market API</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container">
+            <div class="nav-content">
+                <div class="logo">
+                    <span class="logo-text">marketstack</span>
+                </div>
+                <ul class="nav-links">
+                    <li><a href="#pricing">Pricing</a></li>
+                    <li><a href="#documentation">Documentation</a></li>
+                    <li><a href="#stock-search">Stock Search</a></li>
+                    <li><a href="#affiliates">Affiliates</a></li>
+                    <li><a href="#blog">Blog</a></li>
+                    <li><a href="#status">Status</a></li>
+                </ul>
+                <div class="nav-actions">
+                    <a href="#login" class="btn-text">Log In</a>
+                    <a href="#signup" class="btn-primary">Sign Up Free</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Banner -->
+    <div class="banner">
+        <div class="container">
+            <p>🎉 <strong>Now Live</strong> Six new EDGAR endpoints added to Marketstack API — access filings data faster and easier than ever. <a href="#learn-more">Learn More!</a></p>
+        </div>
+    </div>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero-badge">Stock Data</div>
+            <h1 class="hero-title">Real-Time, Intraday & Historical Market along<br>with EDGAR Filings API.</h1>
+            <p class="hero-subtitle">Free, easy-to-use REST API interface delivering<br>worldwide stock market and EDGAR data in JSON format</p>
+            
+            <div class="hero-cards">
+                <div class="hero-card">
+                    <h3>100 Monthly Requests</h3>
+                    <p>Free End-of-Day stock data from 30,000+ tickers around the world.</p>
+                    <a href="#free" class="btn-secondary">Get API Key</a>
+                    <span class="badge-free">FREE</span>
+                </div>
+                <div class="hero-card hero-card-premium">
+                    <h3>Real-Time & Intraday</h3>
+                    <p>Intraday market data & real-time updates for US tickers.</p>
+                    <a href="#pricing" class="btn-primary">Pricing</a>
+                    <span class="badge-price">From $9.99</span>
+                </div>
+            </div>
+
+            <div class="trust-section">
+                <p class="trust-text">Trusted by 30,000+ Happy Customers</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- EDGAR Section -->
+    <section class="edgar-section">
+        <div class="container">
+            <div class="edgar-content">
+                <h2>EDGAR Filings Access</h2>
+                <p>Seamlessly fetch company filings with our 6 new EDGAR endpoints. Access 10-K, 10-Q, 8-K, and other SEC documents in real-time to power financial research and compliance.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Live Stock Data Section -->
+    <section class="live-data-section">
+        <div class="container">
+            <h2 class="section-title">Live Stock Market Data</h2>
+            <p class="section-subtitle">Real-time data powered by Marketstack API</p>
+            
+            <div class="api-demo">
+                <div class="api-key-input">
+                    <input type="text" id="apiKey" placeholder="Enter your Marketstack API Key (Get one free at marketstack.com)" />
+                    <button onclick="saveApiKey()" class="btn-primary">Save API Key</button>
+                </div>
+                
+                <div class="stock-search">
+                    <input type="text" id="stockSymbol" placeholder="Enter stock symbol (e.g., AAPL, MSFT, GOOGL)" value="AAPL" />
+                    <button onclick="fetchStockData()" class="btn-primary">Get Stock Data</button>
+                </div>
+                
+                <div id="stockDataDisplay" class="stock-data-display">
+                    <p class="info-text">Enter your API key and search for a stock symbol to see live data</p>
+                </div>
+            </div>
+
+            <div class="popular-stocks">
+                <h3>Popular Stocks</h3>
+                <div class="stock-grid" id="popularStocksGrid">
+                    <div class="stock-card-placeholder">
+                        <p>Enter API key to load popular stocks</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features">
+        <div class="container">
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">⏱️</div>
+                    <h3>Every Minute, Every Day</h3>
+                    <p>Obtain real-time stock data for more than 30,000 tickers down to the minute, request intraday quotes for tickers from IEX, or search 15+ years of accurate EOD historical market data.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">📊</div>
+                    <h3>Stock Tickers</h3>
+                    <p>Easily integrate the API and make use of 30,000+ worldwide stock tickers with our Stock Price endpoint or integrate more than 500,000 tickers with our EOD endpoint collected from more global exchanges, including Nasdaq, NYSE, and more.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">⚡</div>
+                    <h3>Simple, Quick & Reliable</h3>
+                    <p>We have built a simple, powerful and scalable REST API with an uptime of close to 100%. It will take you less than 5 minutes to get started.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🎁</div>
+                    <h3>Free Plan Available</h3>
+                    <p>Get up and running quickly using the Free Plan, allowing for 100 data requests per month. Instant access, no contract or payment required.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- API Integration Section -->
+    <section class="api-section">
+        <div class="container">
+            <h2 class="section-title">Intuitive APIs.<br>Effortless Integration.<br>Limitless Opportunities.</h2>
+            <p class="section-subtitle">From currencies to weather, PDFs to more, our API marketplace has it all.<br>Start exploring today and find the perfect building blocks for your next project.</p>
+            <a href="#browse" class="btn-outline">Browse All APIs</a>
+        </div>
+    </section>
+
+    <!-- Global Exchanges Section -->
+    <section class="exchanges-section">
+        <div class="container">
+            <div class="exchanges-content">
+                <div class="exchanges-text">
+                    <h2>Covering More Global Exchanges</h2>
+                    <p class="subtitle">Tap into a world of market data, supporting real-time, intraday, and historical data from global stock exchanges.</p>
+                    <ul class="exchanges-list">
+                        <li>Real-Time Stock Prices for 30,000+ tickers</li>
+                        <li>Intraday Market Data from IEX</li>
+                        <li>15+ Years EOD Historical Data</li>
+                        <li>500,000+ Stock Tickers in EOD</li>
+                        <li>750+ Market Indices</li>
+                        <li>Detailed Information for 2700+ stock exchanges</li>
+                    </ul>
+                    <a href="#search" class="btn-primary">Search Stock Tickers</a>
+                    <div class="stat-badge">70 Stock Exchanges</div>
+                </div>
+                <div class="exchanges-visual">
+                    <div class="globe-container">
+                        <div class="globe"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- JSON API Section -->
+    <section class="json-section">
+        <div class="container">
+            <h2 class="section-title">A complete, easy-to-use JSON API for your market data needs</h2>
+            <p class="section-subtitle">Our stock market API is powered by cutting-edge technology and highly scalable cloud infrastructure, capable of handling anything from a few hundred requests per month all the way to millions of hits per day. No matter which volume - we've got you covered!</p>
+            
+            <div class="json-features">
+                <div class="json-feature">
+                    <h3>Lightweight JSON API</h3>
+                    <p>Our stock market data API has been built with simplicity in mind: Requests are made using a simple HTTP GET structure and API response data is delivered in lightweight JSON format.</p>
+                </div>
+                <div class="json-feature">
+                    <h3>Bank-Level Security</h3>
+                    <p>Each bit and byte sent to and from the marketstack API is encrypted using industry-standard 256-bit HTTPS encryption.</p>
+                </div>
+                <div class="json-feature">
+                    <h3>Extensive Documentation</h3>
+                    <p>A straightforward API documentation will help you get up and running within minutes using interactive demo requests and code examples in a variety of programming languages.</p>
+                    <a href="#docs" class="btn-link">Explore API Documentation →</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Social Proof Section -->
+    <section class="social-proof">
+        <div class="container">
+            <h2>30,000+ companies and 80+ universities can't be wrong</h2>
+            <p>You're in good company. Join some of the largest companies and most reputable universities out there using the marketstack stock API.</p>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section">
+        <div class="container">
+            <p>The API is free for up to 100 monthly requests. Get your API key today</p>
+            <a href="#signup" class="btn-primary btn-large">Get Free API Key</a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <div class="logo">
+                        <span class="logo-text">marketstack</span>
+                    </div>
+                    <div class="social-links">
+                        <a href="#facebook" class="social-link">f</a>
+                        <a href="#instagram" class="social-link">ig</a>
+                        <a href="#youtube" class="social-link">yt</a>
+                        <a href="#twitter" class="social-link">tw</a>
+                        <a href="#linkedin" class="social-link">in</a>
+                    </div>
+                </div>
+                <div class="footer-column">
+                    <h4>PRODUCT</h4>
+                    <ul>
+                        <li><a href="#pricing">Pricing</a></li>
+                        <li><a href="#list">List Your API</a></li>
+                        <li><a href="#why">Why choose us?</a></li>
+                        <li><a href="#marketplace">Marketplace</a></li>
+                        <li><a href="#affiliates">Affiliates</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h4>DOCS & HELP</h4>
+                    <ul>
+                        <li><a href="#documentation">Documentation</a></li>
+                        <li><a href="#blog">Blog</a></li>
+                        <li><a href="#faqs">FAQs</a></li>
+                        <li><a href="#stock-search">Stock Search</a></li>
+                        <li><a href="#glossary">API Glossary</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h4>ACCOUNT</h4>
+                    <ul>
+                        <li><a href="#login">Log In</a></li>
+                        <li><a href="#forgot">Forgot Password</a></li>
+                        <li><a href="#signup">FREE Signup</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h4>GET IN TOUCH</h4>
+                    <ul>
+                        <li><a href="#contact">Contact</a></li>
+                        <li><a href="#quote">Get a quote</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>© 2025 Marketstack API, an APILayer product. All rights reserved.</p>
+                <div class="footer-links">
+                    <a href="#imprint">Imprint / Legal</a>
+                    <a href="#privacy">Privacy</a>
+                    <a href="#terms">Terms</a>
+                    <a href="#cookie">Cookie Preference</a>
+                    <a href="#sitemap">Sitemap</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
+
