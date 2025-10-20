@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stock Market Dashboard - Marketstack API</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M16 2L2 9L16 16L30 9L16 2Z" fill="#4CAF50"/>
+                        <path d="M2 23L16 30L30 23V9L16 16L2 9V23Z" fill="#2196F3"/>
+                    </svg>
+                    <h1>Stock Market Dashboard</h1>
+                </div>
+                <nav class="nav">
+                    <a href="#" class="nav-link active" data-section="markets">Markets</a>
+                    <a href="#" class="nav-link" data-section="trending">Trending</a>
+                    <a href="#" class="nav-link" data-section="about">About</a>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main">
+        <div class="container">
+            <!-- Markets Section -->
+            <div id="marketsSection" class="content-section active">
+            <!-- Search Section -->
+            <section class="search-section">
+                <h2>Search Stock Symbols</h2>
+                <div class="search-bar">
+                    <input 
+                        type="text" 
+                        id="searchInput" 
+                        placeholder="Enter stock symbol (e.g., AAPL, MSFT, GOOGL)..." 
+                        class="search-input"
+                    />
+                    <button id="searchBtn" class="search-btn">
+                        <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M9 17A8 8 0 1 0 9 1a8 8 0 0 0 0 16zM19 19l-4.35-4.35" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                        Search
+                    </button>
+                </div>
+            </section>
+
+            <!-- Filter Section -->
+            <section class="filter-section">
+                <h3>Filter by Price Range</h3>
+                <div class="filter-controls">
+                    <div class="filter-group">
+                        <label for="minPrice">Min Price ($)</label>
+                        <input type="number" id="minPrice" placeholder="0" min="0" step="0.01">
+                    </div>
+                    <div class="filter-group">
+                        <label for="maxPrice">Max Price ($)</label>
+                        <input type="number" id="maxPrice" placeholder="1000" min="0" step="0.01">
+                    </div>
+                    <button id="filterBtn" class="filter-btn">Apply Filter</button>
+                    <button id="resetBtn" class="reset-btn">Reset</button>
+                </div>
+            </section>
+
+            <!-- Quick Access Popular Stocks -->
+            <section class="popular-section">
+                <h3>Popular Stocks</h3>
+                <div class="popular-stocks">
+                    <button class="stock-chip" data-symbol="AAPL">AAPL</button>
+                    <button class="stock-chip" data-symbol="MSFT">MSFT</button>
+                    <button class="stock-chip" data-symbol="GOOGL">GOOGL</button>
+                    <button class="stock-chip" data-symbol="AMZN">AMZN</button>
+                    <button class="stock-chip" data-symbol="TSLA">TSLA</button>
+                    <button class="stock-chip" data-symbol="META">META</button>
+                    <button class="stock-chip" data-symbol="NVDA">NVDA</button>
+                    <button class="stock-chip" data-symbol="NFLX">NFLX</button>
+                </div>
+            </section>
+
+            <!-- Results Section -->
+            <section class="results-section">
+                <div class="results-header">
+                    <h3>Stock Data</h3>
+                    <span id="resultsCount" class="results-count"></span>
+                </div>
+                
+                <!-- Skeleton Loading State -->
+                <div id="skeletonLoader" class="skeleton-container hidden">
+                    <div class="skeleton-card">
+                        <div class="skeleton-header">
+                            <div class="skeleton-circle"></div>
+                            <div class="skeleton-text-group">
+                                <div class="skeleton-text skeleton-title"></div>
+                                <div class="skeleton-text skeleton-subtitle"></div>
+                            </div>
+                        </div>
+                        <div class="skeleton-body">
+                            <div class="skeleton-text"></div>
+                            <div class="skeleton-text"></div>
+                            <div class="skeleton-text"></div>
+                        </div>
+                    </div>
+                    <div class="skeleton-card">
+                        <div class="skeleton-header">
+                            <div class="skeleton-circle"></div>
+                            <div class="skeleton-text-group">
+                                <div class="skeleton-text skeleton-title"></div>
+                                <div class="skeleton-text skeleton-subtitle"></div>
+                            </div>
+                        </div>
+                        <div class="skeleton-body">
+                            <div class="skeleton-text"></div>
+                            <div class="skeleton-text"></div>
+                            <div class="skeleton-text"></div>
+                        </div>
+                    </div>
+                    <div class="skeleton-card">
+                        <div class="skeleton-header">
+                            <div class="skeleton-circle"></div>
+                            <div class="skeleton-text-group">
+                                <div class="skeleton-text skeleton-title"></div>
+                                <div class="skeleton-text skeleton-subtitle"></div>
+                            </div>
+                        </div>
+                        <div class="skeleton-body">
+                            <div class="skeleton-text"></div>
+                            <div class="skeleton-text"></div>
+                            <div class="skeleton-text"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Results Grid -->
+                <div id="resultsGrid" class="results-grid">
+                    <!-- Results will be dynamically inserted here -->
+                </div>
+
+                <!-- Error Message -->
+                <div id="errorMessage" class="error-message hidden">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2"/>
+                        <path d="M12 8v4M12 16h.01" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                    </svg>
+                    <span id="errorText"></span>
+                </div>
+
+                <!-- Empty State -->
+                <div id="emptyState" class="empty-state">
+                    <svg width="64" height="64" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <circle cx="32" cy="32" r="30" stroke="#e0e0e0" stroke-width="4"/>
+                        <path d="M32 16v16M32 40h.02" stroke="#e0e0e0" stroke-width="4" stroke-linecap="round"/>
+                    </svg>
+                    <h3>No Data Yet</h3>
+                    <p>Search for a stock symbol or click on popular stocks above to get started</p>
+                </div>
+            </section>
+            </div>
+            <!-- End Markets Section -->
+
+            <!-- Trending Section -->
+            <div id="trendingSection" class="content-section">
+                <section class="trending-hero">
+                    <h2>🔥 Trending Stocks</h2>
+                    <p>Most popular stocks being tracked right now</p>
+                </section>
+
+                <section class="trending-grid-section">
+                    <div id="trendingLoader" class="skeleton-container hidden">
+                        <div class="skeleton-card">
+                            <div class="skeleton-header">
+                                <div class="skeleton-circle"></div>
+                                <div class="skeleton-text-group">
+                                    <div class="skeleton-text skeleton-title"></div>
+                                    <div class="skeleton-text skeleton-subtitle"></div>
+                                </div>
+                            </div>
+                            <div class="skeleton-body">
+                                <div class="skeleton-text"></div>
+                                <div class="skeleton-text"></div>
+                            </div>
+                        </div>
+                        <div class="skeleton-card">
+                            <div class="skeleton-header">
+                                <div class="skeleton-circle"></div>
+                                <div class="skeleton-text-group">
+                                    <div class="skeleton-text skeleton-title"></div>
+                                    <div class="skeleton-text skeleton-subtitle"></div>
+                                </div>
+                            </div>
+                            <div class="skeleton-body">
+                                <div class="skeleton-text"></div>
+                                <div class="skeleton-text"></div>
+                            </div>
+                        </div>
+                        <div class="skeleton-card">
+                            <div class="skeleton-header">
+                                <div class="skeleton-circle"></div>
+                                <div class="skeleton-text-group">
+                                    <div class="skeleton-text skeleton-title"></div>
+                                    <div class="skeleton-text skeleton-subtitle"></div>
+                                </div>
+                            </div>
+                            <div class="skeleton-body">
+                                <div class="skeleton-text"></div>
+                                <div class="skeleton-text"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="trendingGrid" class="results-grid"></div>
+                </section>
+            </div>
+            <!-- End Trending Section -->
+
+            <!-- About Section -->
+            <div id="aboutSection" class="content-section">
+                <section class="about-hero">
+                    <h2>📊 About This Dashboard</h2>
+                    <p>Real-time stock market data powered by Marketstack API</p>
+                </section>
+
+                <div class="about-content">
+                    <div class="about-card">
+                        <div class="about-icon">🚀</div>
+                        <h3>What We Offer</h3>
+                        <p>Access real-time and historical stock market data from global exchanges. Search for any stock symbol and get detailed information including prices, volumes, and daily changes.</p>
+                    </div>
+
+                    <div class="about-card">
+                        <div class="about-icon">📈</div>
+                        <h3>Data Sources</h3>
+                        <p>Powered by <strong>Marketstack API</strong>, providing reliable end-of-day (EOD) stock data from major stock exchanges worldwide including NASDAQ, NYSE, and more.</p>
+                    </div>
+
+                    <div class="about-card">
+                        <div class="about-icon">🔍</div>
+                        <h3>Features</h3>
+                        <ul class="feature-list">
+                            <li>Real-time stock price search</li>
+                            <li>Price range filtering</li>
+                            <li>Popular stocks quick access</li>
+                            <li>Detailed stock information cards</li>
+                            <li>Responsive mobile-friendly design</li>
+                            <li>Fast skeleton loading states</li>
+                        </ul>
+                    </div>
+
+                    <div class="about-card">
+                        <div class="about-icon">💡</div>
+                        <h3>How to Use</h3>
+                        <ol class="how-to-list">
+                            <li><strong>Search:</strong> Enter any stock symbol (e.g., AAPL, MSFT) in the search bar</li>
+                            <li><strong>Filter:</strong> Use price filters to narrow down results by price range</li>
+                            <li><strong>Quick Access:</strong> Click popular stock chips for instant results</li>
+                            <li><strong>Trending:</strong> Check out trending stocks in the Trending section</li>
+                        </ol>
+                    </div>
+
+                    <div class="about-card">
+                        <div class="about-icon">⚡</div>
+                        <h3>Technology Stack</h3>
+                        <div class="tech-badges">
+                            <span class="tech-badge">HTML5</span>
+                            <span class="tech-badge">CSS3</span>
+                            <span class="tech-badge">JavaScript ES6+</span>
+                            <span class="tech-badge">Marketstack API</span>
+                            <span class="tech-badge">Responsive Design</span>
+                        </div>
+                    </div>
+
+                    <div class="about-card">
+                        <div class="about-icon">📞</div>
+                        <h3>API Information</h3>
+                        <p><strong>API Provider:</strong> Marketstack</p>
+                        <p><strong>Website:</strong> <a href="https://marketstack.com" target="_blank" rel="noopener">marketstack.com</a></p>
+                        <p><strong>Data Type:</strong> End of Day (EOD) stock market data</p>
+                        <p><strong>Coverage:</strong> Global stock exchanges</p>
+                    </div>
+                </div>
+            </div>
+            <!-- End About Section -->
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p>Powered by <a href="https://marketstack.com" target="_blank" rel="noopener">Marketstack API</a> | Stock Market Data Dashboard</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
+
