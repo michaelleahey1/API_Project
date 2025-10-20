@@ -1,6 +1,6 @@
 // Marketstack API Configuration
 const API_KEY = '576f8b00a28c970345dc03c435d3809d';
-const API_BASE_URL = 'http://api.marketstack.com/v1';
+const API_BASE_URL = 'https://api.marketstack.com/v1';
 
 // DOM Elements
 const searchInput = document.getElementById('searchInput');
