@@ -41,7 +41,7 @@ async function fetchStockData() {
     display.innerHTML = '<p class="loading">Fetching stock data for ' + symbol + '</p>';
     
     try {
-        const response = await fetch(`http://api.marketstack.com/v1/eod/latest?access_key=${apiKey}&symbols=${symbol}`);
+        const response = await fetch(`https://api.marketstack.com/v1/eod/latest?access_key=${apiKey}&symbols=${symbol}`);
         const data = await response.json();
         
         if (data.error) {
@@ -115,7 +115,7 @@ async function loadPopularStocks() {
     grid.innerHTML = '<p class="loading">Loading popular stocks</p>';
     
     try {
-        const response = await fetch(`http://api.marketstack.com/v1/eod/latest?access_key=${apiKey}&symbols=${symbols.join(',')}`);
+        const response = await fetch(`https://api.marketstack.com/v1/eod/latest?access_key=${apiKey}&symbols=${symbols.join(',')}`);
         const data = await response.json();
         
         if (data.error) {
