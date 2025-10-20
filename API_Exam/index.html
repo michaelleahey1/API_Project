@@ -39,7 +39,7 @@
                     <input 
                         type="text" 
                         id="searchInput" 
-                        placeholder="Enter stock symbol (e.g., AAPL, MSFT, GOOGL)..." 
+                        placeholder="Enter stock symbols - single (AAPL) or multiple separated by commas (AAPL, MSFT, GOOGL)..." 
                         class="search-input"
                     />
                     <button id="searchBtn" class="search-btn">
@@ -49,6 +49,9 @@
                         Search
                     </button>
                 </div>
+                <p style="margin-top: 0.5rem; font-size: 0.85rem; color: #666;">
+                    💡 To use the price filter, search multiple stocks or click "Load All Popular Stocks"
+                </p>
             </section>
 
             <!-- Filter Section -->
@@ -70,7 +73,12 @@
 
             <!-- Quick Access Popular Stocks -->
             <section class="popular-section">
-                <h3>Popular Stocks</h3>
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+                    <h3 style="margin: 0;">Popular Stocks</h3>
+                    <button id="loadAllPopularBtn" class="filter-btn" style="padding: 0.5rem 1rem; font-size: 0.9rem;">
+                        Load All Popular Stocks
+                    </button>
+                </div>
                 <div class="popular-stocks">
                     <button class="stock-chip" data-symbol="AAPL">AAPL</button>
                     <button class="stock-chip" data-symbol="MSFT">MSFT</button>
@@ -81,6 +89,9 @@
                     <button class="stock-chip" data-symbol="NVDA">NVDA</button>
                     <button class="stock-chip" data-symbol="NFLX">NFLX</button>
                 </div>
+                <p style="margin-top: 0.5rem; font-size: 0.85rem; color: #666; font-style: italic;">
+                    💡 Tip: Click "Load All Popular Stocks" to load multiple stocks, then use the price filter!
+                </p>
             </section>
 
             <!-- Results Section -->

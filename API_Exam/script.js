@@ -7,6 +7,7 @@ const searchInput = document.getElementById('searchInput');
 const searchBtn = document.getElementById('searchBtn');
 const filterBtn = document.getElementById('filterBtn');
 const resetBtn = document.getElementById('resetBtn');
+const loadAllPopularBtn = document.getElementById('loadAllPopularBtn');
 const minPriceInput = document.getElementById('minPrice');
 const maxPriceInput = document.getElementById('maxPrice');
 const resultsGrid = document.getElementById('resultsGrid');
@@ -33,6 +34,12 @@ searchInput.addEventListener('keypress', (e) => {
 
 filterBtn.addEventListener('click', applyFilter);
 resetBtn.addEventListener('click', resetFilters);
+
+// Load all popular stocks button
+loadAllPopularBtn.addEventListener('click', () => {
+    const popularSymbols = ['AAPL', 'MSFT', 'GOOGL', 'AMZN', 'TSLA', 'META', 'NVDA', 'NFLX'];
+    fetchMultipleSymbols(popularSymbols);
+});
 
 for (const chip of stockChips) {
     chip.addEventListener('click', () => {
@@ -125,12 +132,23 @@ async function loadTrendingStocks() {
 
 // Main Functions
 async function handleSearch() {
-    const symbol = searchInput.value.trim().toUpperCase();
+    const input = searchInput.value.trim().toUpperCase();
     
-    if (!symbol) {
+    if (!input) {
         showError('Please enter a stock symbol');
         return;
     }
+
+    // Check if multiple symbols are entered (comma-separated)
+    const symbols = input.split(',').map(s => s.trim()).filter(s => s.length > 0);
+    
+    if (symbols.length > 1) {
+        // If multiple symbols, use fetchMultipleSymbols
+        await fetchMultipleSymbols(symbols);
+        return;
+    }
+
+    const symbol = symbols[0];
 
     showLoading();
     hideError();
